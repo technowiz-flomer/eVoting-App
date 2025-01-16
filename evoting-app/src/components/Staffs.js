@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Staffs() {
+  const [selectedStaff, setSelectedStaff] = useState()
 
   const staffs = ['COMELECT', 'Poll Workers', 'Election Observers', 'Media', 'Law Enforcement']
 
   return (
     <div className='p-2 w-full'>
       <div className='mb-5 text-xl font-semibold'>Staffs</div>
+      <StaffTab staffs={staffs} selectedStaff={selectedStaff} setSelectedStaff={setSelectedStaff}/>
+      { selectedStaff ? <Table staff={selectedStaff} persons={[]}/> : null}
+    </div>
+  )
+}
+
+function StaffTab(props){
+  const {staffs, selectedStaff, setSelectedStaff} = props
+  return (
+    <div className='w-4/5 flex space-x-2'>
       {
         staffs.map(staff => {
-          return <Table staff={staff} persons={[]}/>
+          return <div className={`p-1 px-2 border rounded-lg transition-colors ${selectedStaff == staff ? 'select-none bg-blue-400 text-white' : 'cursor-pointer hover:bg-blue-400 hover:text-white'}`} onClick={()=>setSelectedStaff(staff)}>{staff}</div>
         })
       }
     </div>
