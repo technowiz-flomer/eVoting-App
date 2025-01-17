@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function SideBar() {
   return (
@@ -15,7 +15,10 @@ export default function SideBar() {
 
 function SidebarLink(props){
     const {path, label} = props
+    const location = useLocation();
+    const isSelected = location.pathname === path;
+
     return (
-        <Link to={path} className='p-2 border border-slate-50 rounded-lg hover:border-slate-400'>{label}</Link>
+        <Link to={path} className={`p-2 border rounded-lg ${isSelected ? 'border-slate-400' : 'border-transparent hover:border-slate-400'}`}>{label}</Link>
     )
 }
